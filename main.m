@@ -1,42 +1,58 @@
-%% TP 
+%% Clear console and variables
+clc, clear, close all;
 
-%% Question 1
 
-image = imread("Database\t000.tif");
+%% Load an image
+image = imread("dataset/\t000.tif");
 
-%% Question 2
 
-imhist(image);
+%% Image histogram display
+imhist(image),title('Original image histogram'),figure
 
-%% Question 3
 
-% on choisi un seuil à 14
+%% Converting image from NDG to BW:
+% Using Otsu's threshold
+imageOtsu = imbinarize(image);
 
-seuil = 14;
+% Using pixels' median
+threshold_median = median(image,'all')
+imageMedian = image > threshold_median;
 
-image = image > seuil;
-% imagesc(image);
-colormap gray;
+% Using pixels' mean
+threshold_mean = mean(image,'all')
+imageMean = image > threshold_mean;
 
-%% Question 4
-nImage = 90;                                                        
-fps = 3.0;                                                           
-addToInFolder = 'Database/';                    
-addToOutFolder = './';                   
+subplot(2,2,1), imshow(image), title('Original')
+subplot(2,2,2), imshow(imageOtsu), title("Otsu's threshold")
+subplot(2,2,3), imshow(imageMedian), title('Median threshold')
+subplot(2,2,4), imshow(imageMean), title('Mean threshold')
+% Even if the Otsu' thereshold is the most usefull in most case, here the
+% mean thereshold seems better because:
+% - It is the threshold with the less loss of cells.
+% - It has less noise than the median one.
 
-oVideo = VideoWriter(fullfile(addToOutFolder, 'cells.avi'));       
+threshold = threshold_mean
+
+
+%% Create video from dataset images
+outFolder='videos';
+inputfolder='dataset';
+nImage = numel(dir(strcat(inputfolder,'/*'))); % Get number of images
+fps = 3.0;
+
+oVideo = VideoWriter(fullfile(outFolder, 'cells.avi'));       
 oVideo.FrameRate = fps;                                              
 open(oVideo);
 
-for i = 1:nImage                                                     
-    fname = ['t' num2str(i, '%.3d') '.tif'];                     
-    curImage = imread(fullfile(addToInFolder,fname));
-    curImage = im2uint8(curImage > seuil);
-
+for i = 0:nImage
+    fname = ['t' num2str(i, '%.3d') '.tif'];
+    curImage = imread(fullfile(inputfolder,fname));
+    curImage = im2uint8(curImage > threshold);
     writeVideo(oVideo, curImage);                                    
 end                                                                  
 close(oVideo)  
 
+%{
 %% Question 5
 
 implay('cells.avi');
@@ -156,3 +172,4 @@ close(oVideo)
 
 implay("cells_segmentation.avi");
 
+%}
