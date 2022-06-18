@@ -15,11 +15,11 @@ imhist(image),title('Original image histogram'),figure
 imageOtsu = imbinarize(image);
 
 % Using pixels' median
-threshold_median = median(image,'all')
+threshold_median = median(image,'all');
 imageMedian = image > threshold_median;
 
 % Using pixels' mean
-threshold_mean = mean(image,'all')
+threshold_mean = mean(image,'all');
 imageMean = image > threshold_mean;
 
 subplot(2,2,1), imshow(image), title('Original')
@@ -31,46 +31,58 @@ subplot(2,2,4), imshow(imageMean), title('Mean threshold')
 % - It is the threshold with the less loss of cells.
 % - It has less noise than the median one.
 
-threshold = threshold_mean
+threshold = threshold_median
 
 
 %% Create video from dataset images
 outFolder='videos';
-inputfolder='dataset';
-nImage = numel(dir(strcat(inputfolder,'/*'))); % Get number of images
+outVideoName='cells.avi'
+inputFolder='dataset/';
+imagesExtension='*.tif';
+%nImage = numel(dir(strcat(inputfolder,'/*'))); % Get number of images
+imagesList = dir(strcat(inputFolder, imagesExtension));
 fps = 3.0;
 
-oVideo = VideoWriter(fullfile(outFolder, 'cells.avi'));       
+% Create video
+oVideo = VideoWriter(fullfile(outFolder, outVideoName));       
 oVideo.FrameRate = fps;                                              
 open(oVideo);
 
-for i = 0:nImage
-    fname = ['t' num2str(i, '%.3d') '.tif'];
-    curImage = imread(fullfile(inputfolder,fname));
-    curImage = im2uint8(curImage > threshold);
-    writeVideo(oVideo, curImage);                                    
-end                                                                  
-close(oVideo)  
+for i = 1:length(imagesList)
+    image = imread(strcat(inputFolder,imagesList(i).name));
+    image = im2uint8(image > threshold); %Median or mean binarization
+    %image = im2uint8(imbinarize(image)); %Otsu binarization
+    writeVideo(oVideo, image);
+end
+
+close(oVideo)
+
+
+%% Play video
+implay(fullfile(outFolder, outVideoName));
+
+
+%% Process image
+% Delete noises and try to re-create complete cells from set of points by
+% using opening and closing images processing methods
+
+preprocessedImage = imread(strcat(inputFolder,imagesList(1).name));
+preprocessedImage = im2uint8(preprocessedImage > threshold); %Median or mean binarization
+%preprocessedImage = im2uint8(imbinarize(preprocessedImage)); %Otsu binarization
+
+% In image processing there
+SE = strel('disk', 2);
+preprocessedImage = imerode(preprocessedImage, SE);
+   
+% SE = strel('disk', 2);
+% curImage = imdilate(curImage, SE);
+
+% SE = strel('disk', 8);
+% curImage = imdilate(curImage, SE);
+    
+imshow(preprocessedImage),figure
 
 %{
-%% Question 5
-
-implay('cells.avi');
-
-%% Question 6
-
-curImage=  imread("Database/t000.tif");
-curImage = im2uint8(curImage > seuil);
-
-SE = strel('disk', 8);
-curImage = imdilate(curImage, SE);
-    
-SE = strel('disk', 10);
-curImage = imerode(curImage, SE);
-   
-SE = strel('disk', 2);
-curImage = imdilate(curImage, SE);
-
 % imagesc(curImage);
 stats = regionprops(curImage, 'Area', 'Eccentricity', 'Centroid');
 curImage = bwlabel(curImage); % étiqueter les cellules
@@ -80,6 +92,8 @@ figure, imagesc(curImage);
 nombreCells = max(max(curImage)); % on calcule le nombre de cellules qui est 
 % exactement le nombre d'objets connexes
 title(['Le nombre de cellules est égal à ', num2str(nombreCells)])
+
+
 
 %% Question 7
 

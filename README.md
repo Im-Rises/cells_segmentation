@@ -4,6 +4,10 @@ Cells segmentation program made in Matlab.
 
 ## Description
 
+## Images
+
+## Videos
+
 ## Quick start
 
 To run the project, you need to install the MatLab packages:
