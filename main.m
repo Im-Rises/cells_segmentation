@@ -7,7 +7,7 @@ image = imread("dataset/\t000.tif");
 
 
 %% Image histogram display
-imhist(image),title('Original image histogram'),figure
+figure, imhist(image),title('Original image histogram');
 
 
 %% Converting image from NDG to BW:
@@ -22,18 +22,25 @@ imageMedian = image > threshold_median;
 threshold_mean = mean(image,'all');
 imageMean = image > threshold_mean;
 
-subplot(2,2,1), imshow(image), title('Original')
-subplot(2,2,2), imshow(imageOtsu), title("Otsu's threshold")
-subplot(2,2,3), imshow(imageMedian), title('Median threshold')
-subplot(2,2,4), imshow(imageMean), title('Mean threshold')
-% Even if the Otsu' thereshold is the most usefull in most case, here the
-% mean thereshold seems better because:
-% - It is the threshold with the less loss of cells.
-% - It has less noise than the median one.
+figure;
+subplot(2,2,1), imshow(image), title('Original');
+subplot(2,2,2), imshow(imageOtsu), title("Otsu's threshold");
+subplot(2,2,3), imshow(imageMedian), title('Median threshold');
+subplot(2,2,4), imshow(imageMean), title('Mean threshold');
+% - Otsu' method has less noise than the other but less cells
+% - Image with median threshold has the more cells but the more noise
+% - Image with mean threshold has less cells than median thereshold method
+% but less noise as well
 
-threshold = threshold_median
+% By looking at the histogram, perhaps selecting manually the thereshold
+% could be interesting.
+threshold = 14
+imageMyThreshold = image > threshold;
+figure, imshow(imageMyThreshold), title('Image with my threshold');
+% By selecting a threshold that separate the pixels close to 0 and the rest
+% we get a picture pretty clear with a lot of cells.
 
-
+%{
 %% Create video from dataset images
 outFolder='videos';
 outVideoName='cells.avi'
@@ -55,16 +62,22 @@ for i = 1:length(imagesList)
     writeVideo(oVideo, image);
 end
 
-close(oVideo)
+close(oVideo);
 
 
 %% Play video
-implay(fullfile(outFolder, outVideoName));
+%implay(fullfile(outFolder, outVideoName));
 
 
 %% Process image
 % Delete noises and try to re-create complete cells from set of points by
 % using opening and closing images processing methods
+
+
+% Median filter
+imageMean = medfilt2(imageMean);
+figure, imshow(imageMean)
+
 
 preprocessedImage = imread(strcat(inputFolder,imagesList(1).name));
 preprocessedImage = im2uint8(preprocessedImage > threshold); %Median or mean binarization
@@ -73,23 +86,33 @@ preprocessedImage = im2uint8(preprocessedImage > threshold); %Median or mean bin
 % In image processing there
 SE = strel('disk', 2);
 preprocessedImage = imerode(preprocessedImage, SE);
-   
-% SE = strel('disk', 2);
-% curImage = imdilate(curImage, SE);
 
-% SE = strel('disk', 8);
-% curImage = imdilate(curImage, SE);
-    
-imshow(preprocessedImage),figure
+SE = strel('disk', 8);
+preprocessedImage = imdilate(preprocessedImage, SE);
 
-%{
-% imagesc(curImage);
-stats = regionprops(curImage, 'Area', 'Eccentricity', 'Centroid');
-curImage = bwlabel(curImage); % étiqueter les cellules
+SE = strel('disk', 8);
+preprocessedImage = imerode(preprocessedImage, SE);
 
-figure, imagesc(curImage);
+SE = strel('disk', 6);
+preprocessedImage = imdilate(preprocessedImage, SE);
 
-nombreCells = max(max(curImage)); % on calcule le nombre de cellules qui est 
+SE = strel('disk', 8);
+preprocessedImage = imerode(preprocessedImage, SE);
+
+
+% Remplir les trous à l'aide de imfill
+imFinale = imfill(imageDilate, 'holes');
+figure, imshow(imFinale)
+
+imshow(preprocessedImage),title('Processed image');
+
+%% Find regions in image
+stats = regionprops(preprocessedImage, 'Area', 'Eccentricity', 'Centroid');
+preprocessedImage = bwlabel(preprocessedImage); % étiqueter les cellules
+imagesc(preprocessedImage);
+
+
+nombreCells = max(max(preprocessedImage)); % on calcule le nombre de cellules qui est 
 % exactement le nombre d'objets connexes
 title(['Le nombre de cellules est égal à ', num2str(nombreCells)])
 
