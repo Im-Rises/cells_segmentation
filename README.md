@@ -9,16 +9,21 @@
 Cells segmentation program made in Matlab.
 This program is made for educational purpose. 
 Anaylyse group of cells from pictures with image conversion, thresholding, filtering, regions separation and segmentation.
+The goal is to create video with the maximum of cells visible.
 
 ## Images
 
 |Image 000|Image 030|
 |---|---|
-|![cellsImage](dataset/t000.tif) | ![cellsImage](dataset/t030.tif)|
+|![t000](https://user-images.githubusercontent.com/59691442/174499468-cc84d8b5-6d31-46a0-bbd4-3127c611e084.png)|![t090](https://user-images.githubusercontent.com/59691442/174499479-88b99f06-42f1-413c-b96d-13fbb81b208e.png)|
+| | |
 
+<!--
 |Image 060|Image 090|
 |---|---|
-|![cellsImage](dataset/t060.tif)|![cellsImage](dataset/t090.tif)|
+|![t060](https://user-images.githubusercontent.com/59691442/174499477-7c6cee2d-3039-44c5-b90a-75e859641261.png)|
+![t030](https://user-images.githubusercontent.com/59691442/174499475-f706296f-4c82-47ac-bd36-ef4fbeab92d9.png)|
+-->
 
 ## Videos
 
