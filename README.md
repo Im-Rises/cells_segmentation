@@ -12,9 +12,12 @@ Anaylyse group of cells from pictures with image conversion, thresholding, filte
 
 ## Images
 
-|| |
+|Image 000|Image 030|
 |---|---|
 |![cellsImage](dataset/t000.tif) | ![cellsImage](dataset/t030.tif)|
+
+|Image 060|Image 090|
+|---|---|
 |![cellsImage](dataset/t060.tif)|![cellsImage](dataset/t090.tif)|
 
 ## Videos
@@ -38,23 +41,33 @@ To start the project, start the `main.m` script in MatLab.
 ## Project architecture
 
 The project is compose of one main script `main.m` that will call all the others script.
+
 The other importants scripts are :
 - `create_video_from_images.m` to create video from a set of images
-- `image_processing` to process images
-- `image_regions` to display regions in a image
-- `image_segmentation` to segment cells in a image
+- `image_processing.m` to process images
+- `image_regions.m` to display regions in a image
+- `image_segmentation.m` to segment cells in a image
 
-The three following files are just functions to call a set of functions:
-- `im2bw_processed` image to black and white and processing
-- `im2bw_processed_regions` image to black and white and processing with regions
-- `im2bw_processed_segmentation` image to black and white and processing with segmentation
-
-The last three other files are a set of functions for different way to convert an image to black and white (BW):
+The three other following files are a set of functions for different way to convert an image to black and white (BW):
 - `im2bw_mean` image to BW by using mean
 - `im2bw_median` image to BW by using median
 - `im2bw_my_version` image by manually changing threshold
 
-You can also use in the script the Otsu's method.
+**Note**
+> You can also use the Otsu's method to convert an image from grayscale to BW.
+
+The `pipe.m` file is to use several functions on one variable 
+For example, a conversion from grayscale to BW, processing and segmenting image.
+To use it there is four example in the code:  
+
+```matlab
+create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-4-bw-processed-segmented.avi', {im2bwSelectedFunc, @image_processing,@image_segmentation});
+`` 
+Usage:
+
+```matlab
+image = pipe(image, {@func1,@func2,@func3});
+```
 
 ## Documentation
 

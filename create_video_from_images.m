@@ -1,4 +1,4 @@
-function create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, outputFileName, im2bwFunc, pipeFunc)
+function create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, outputFileName, functionsCellsArray)
     % Get images' name
     imagesList = dir(strcat(inputFolder, imagesExtension));
     % Create video
@@ -8,7 +8,8 @@ function create_video_from_images(fps, inputFolder, imagesExtension, outputFolde
     
     for i = 1:length(imagesList)
         image = imread(strcat(inputFolder,imagesList(i).name));
-        image = im2uint8(pipeFunc(image, im2bwFunc));% Use processing function send as parameter
+        image = pipe(image, functionsCellsArray);
+        image = im2uint8(image);% Use functions send as parameter on image with the pipe help
         writeVideo(oVideo, image);
     end
     
