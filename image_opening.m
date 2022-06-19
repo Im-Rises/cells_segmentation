@@ -1,1 +1,0 @@
-function imageOpened = image_opening(image, SE, )
