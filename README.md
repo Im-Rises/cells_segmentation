@@ -1,7 +1,7 @@
 # cells_segmentation
 
 <p align="center">
-    <a href="https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg" alt="MatLabBadge"></a>
+    <img src="https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg" alt="MatLabBadge">
 </p>
 
 ## Description
@@ -22,7 +22,7 @@ Anaylyse group of cells from pictures with image conversion, thresholding, filte
 
 ## Videos
 
-A set of videos are available in the video dolfer. They show the different main step of the image processing.
+A set of videos are available in the video folfer. They show the different main step of the image processing.
 
 PLACEHOLDER
 
@@ -36,7 +36,7 @@ To run the project, you need to install the MatLab packages:
 - [Signal Processing Toolbox](https://fr.mathworks.com/products/signal.html)
 - [Image Acquisition Toolbox](https://fr.mathworks.com/products/image-acquisition.html)
 
-To start the project, start the `main.m` script in MatLab.
+Once you have installed everything, you can start the project opening the root folder as a project and starting the `main.m` script in MatLab.
 
 ## Project architecture
 
@@ -62,7 +62,8 @@ To use it there is four example in the code:
 
 ```matlab
 create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-4-bw-processed-segmented.avi', {im2bwSelectedFunc, @image_processing,@image_segmentation});
-`` 
+```
+
 Usage:
 
 ```matlab
