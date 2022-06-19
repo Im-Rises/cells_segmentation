@@ -13,21 +13,21 @@ The goal is to create video with the maximum of cells visible.
 
 ## Images
 
-|Image 000|Image 030|
+|Image original|Image processed|
 |---|---|
-|![t000](https://user-images.githubusercontent.com/59691442/174499468-cc84d8b5-6d31-46a0-bbd4-3127c611e084.png)|![t090](https://user-images.githubusercontent.com/59691442/174499479-88b99f06-42f1-413c-b96d-13fbb81b208e.png)|
-| | |
+|![t000_original](https://user-images.githubusercontent.com/59691442/174501288-3a19733f-c6e5-4551-ad4b-8e70f79f1150.png)|![t000_processed](https://user-images.githubusercontent.com/59691442/174501289-557f8937-900d-462d-b834-88c1c298cf16.png)|
 
-<!--
-|Image 060|Image 090|
+|Image regions|Image segmentation|
 |---|---|
-|![t060](https://user-images.githubusercontent.com/59691442/174499477-7c6cee2d-3039-44c5-b90a-75e859641261.png)|
-![t030](https://user-images.githubusercontent.com/59691442/174499475-f706296f-4c82-47ac-bd36-ef4fbeab92d9.png)|
--->
+|![t000_processed_regions](https://user-images.githubusercontent.com/59691442/174501290-4000f03e-b6ff-427a-adef-1757f3df3f4a.png)|![t000_processed_segmentation](https://user-images.githubusercontent.com/59691442/174501292-ee28b06d-47e5-4b9e-a919-2b0bb73119dd.png)|
 
 ## Videos
 
 A set of videos are available in the video folfer. They show the different main step of the image processing.
+
+https://user-images.githubusercontent.com/59691442/174501710-ba668ab4-ab22-4bdb-8adc-d2b0d89f1abd.mp4
+
+https://user-images.githubusercontent.com/59691442/174501630-e911c06d-47a2-416c-b142-b9f2c419df3f.mp4
 
 PLACEHOLDER
 
