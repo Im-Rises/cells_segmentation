@@ -75,7 +75,7 @@ create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells
 Usage:
 
 ```matlab
-image = pipe(image, {@func1,@func2,@func3});
+variable = pipe(variable, {@func1,@func2,@func3});
 ```
 
 ## Documentation
