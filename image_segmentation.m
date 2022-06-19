@@ -1,7 +1,7 @@
 function imageSegmented = image_segmentation(image)
     imageLabeled = bwlabel(image); % Label the cells
     nombreCells = max(max(imageLabeled)); % Calculate the number of cells (number of connected spaces)    
-    imagesc(imageLabeled), title(['Image regions, number of cells ', num2str(nombreCells)]);
+    imagesc(imageLabeled), title(['Image segmented, number of cells ', num2str(nombreCells)]);
     B = bwboundaries(image);
     imlabel = bwlabel(image);
     imshow(image); hold on
