@@ -1,7 +1,14 @@
+image = imread("dataset/t000.tif");
+cellsArray = {@imbinarize};
+
+image = pipe(image,cellsArray);
+hold on
+figure, imshow(image),title("Test pipe");
+
 %% Clear console and variables
 clc, clear, close all;
 
-
+%{
 %% Variables
 fps = 3.0;
 inputFolder='dataset/';
@@ -51,13 +58,13 @@ figure, imshow(imageMyThreshold),title('Image BW');
 %im2bwSelected=@imbinarize;
 %im2bwSelected=@im2bw_median;
 %im2bwSelected=@im2bw_mean;
-im2bwSelected=@im2bw_my_version;
+im2bwSelectedFunc=@im2bw_my_version;
 
-imageBW = im2bwSelected(image);
+imageBW = im2bwSelectedFunc(image);
 
 
 %% Create video from dataset images
-create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-1-bw.avi', im2bwSelected);
+create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-1-bw.avi', im2bwSelectedFunc, @pipe_im2bw);
 %implay(fullfile(outFolder, outVideoName));
 
 
@@ -67,7 +74,7 @@ figure, imshow(imageBwProcessed), title('Image BW processed')
 
 
 %% Create video with processed images
-create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-2-bw-processed.avi', @im2bw_processed);
+create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-2-bw-processed.avi', im2bwSelectedFunc, @pipe_im2bw_processed);
 
 
 %% Find regions in image
@@ -75,7 +82,7 @@ figure, image_regions(imageBwProcessed);
 
 
 %% Create video with images' regions
-create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-3-bw-processed-regions.avi', @im2bw_processed_regions);
+create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-3-bw-processed-regions.avi', im2bwSelectedFunc,@pipe_im2bw_processed_regions);
 
 
 %% Segment all cells for one image
@@ -83,4 +90,5 @@ figure, imageBwProcessedSegmented = image_segmentation(imageBwProcessed);
 
 
 %% Create videos with segmented cells
-create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-4-bw-processed-segmented.avi', @im2bw_processed_segmented);
+create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-4-bw-processed-segmented.avi', im2bwSelectedFunc,@pipe_im2bw_processed_segmented);
+%}
