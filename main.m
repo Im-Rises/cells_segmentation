@@ -1,6 +1,7 @@
 %% Clear console and variables
 clc, clear, close all;
 
+
 %% Variables
 fps =3.0;
 inputFolder='dataset/';
@@ -36,22 +37,34 @@ subplot(2,2,4), imshow(imageMean), title('Mean threshold');
 % - Image with mean threshold has less cells than median thereshold method
 % but less noise as well
 
-% I choose to use the mean thresholding method to try to extract all cells
-%processingImagesFunc=@imbinarize;
-%processingImagesFunc=@median_thresholding;
-im2bwMyFunc=@mean_thresholding;
-
 
 %% My threshold
 imageMyThreshold = manual_thresholding(image, 1);
 figure, imshow(imageMyThreshold),title('My image threshold');
 
+
+%% Choosing the thresholding method
+% I choose to use a manual choosen thresholding according to image
+% histogram
+%processingImagesFunc=@imbinarize;
+%processingImagesFunc=@median_thresholding;
+%im2bwMyFunc=@mean_thresholding;
+im2bwMyFunc=@my_thresholding;
+
+
+%% Create video from dataset images
+create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-1-bw.avi', im2bwMyFunc);
+
+
+%% Play video
+%implay(fullfile(outFolder, outVideoName));
+
+
+%% My image process
 % Delete noises and try to re-create complete cells from set of points by
 % using opening and closing images processing methods
 
 % Median filter to correct noise (Salt-and-pepper noise)
-imageMyThreshold= medfilt2(imageMyThreshold);
-imageMyThreshold= medfilt2(imageMyThreshold);
 imageMyThreshold= medfilt2(imageMyThreshold);
 figure, imshow(imageMyThreshold), title('My Image median filtered')
 
@@ -70,14 +83,6 @@ imageMyThresholdFinal= imfill(imageMyThreshold, 'holes');
 
 % Display my final image with my owen threshold
 figure, imshow(imageMyThresholdFinal), title('My Image processed')
-
-
-%% Create video from dataset images
-create_video_from_images(fps, inputFolder, imagesExtension, outputFolder, 'cells-1.avi', im2bwMyFunc);
-
-
-%% Play video
-%implay(fullfile(outFolder, outVideoName));
 
 
 %{
@@ -108,9 +113,8 @@ figure, imshow(imageProcessed),title('Processed image');
 
 %% Find regions in image
 stats = regionprops(imageMyThresholdFinal, 'Area', 'Eccentricity', 'Centroid');
-imageMyThresholdFinal = bwlabel(imageMyThresholdFinal); % étiqueter les cellules
+imageMyThresholdFinal = bwlabel(imageMyThresholdFinal); % Label the cells
 nombreCells = max(max(imageMyThresholdFinal)); % Calculate the number of cells (number of connected spaces)
-
 figure, imagesc(imageMyThresholdFinal), title(['Number of cells ', num2str(nombreCells)]);
 
 
