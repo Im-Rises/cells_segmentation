@@ -6,7 +6,7 @@
 
 ## Description
 
-Cells segmentation program made in Matlab.
+Cells segmentation program made in MATLAB.
 This program is made for educational purpose.
 Analyse group of cells from pictures with image conversion, thresholding, filtering, regions separation and
 segmentation.
@@ -32,17 +32,17 @@ https://user-images.githubusercontent.com/59691442/174501630-e911c06d-47a2-416c-
 
 ## Quick start
 
-First thing to do is to have MatLab, you can find it below:  
+First thing to do is to have MATLAB, you can find it below:  
 <https://fr.mathworks.com/products/matlab.html>
 
-To run the project, you need to install the MatLab packages:
+To run the project, you need to install the MATLAB packages:
 
 - [Image Processing Toolbox](https://fr.mathworks.com/products/image.html)
 - [Signal Processing Toolbox](https://fr.mathworks.com/products/signal.html)
 - [Image Acquisition Toolbox](https://fr.mathworks.com/products/image-acquisition.html)
 
 Once you have installed everything, you can start the project opening the root folder as a project and starting
-the `main.m` script in MatLab.
+the `main.m` script in MATLAB.
 
 ## Project architecture
 
