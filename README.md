@@ -14,12 +14,12 @@ The goal is to create video with the maximum of cells visible.
 
 ## Images
 
-| Image original                                                                                                          | Image processed                                                                                                          |
-|-------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| ![t000_original](https://user-images.githubusercontent.com/59691442/174501288-3a19733f-c6e5-4551-ad4b-8e70f79f1150.png) | ![t000_processed](https://user-images.githubusercontent.com/59691442/174501289-557f8937-900d-462d-b834-88c1c298cf16.png) |
+| Image original| Image processed|
+|---|---|
+|![t000_original](https://user-images.githubusercontent.com/59691442/174501288-3a19733f-c6e5-4551-ad4b-8e70f79f1150.png) | ![t000_processed](https://user-images.githubusercontent.com/59691442/174501289-557f8937-900d-462d-b834-88c1c298cf16.png) |
 
-| Image regions                                                                                                                    | Image segmentation                                                                                                                    |
-|----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Image regions| Image segmentation|
+|---|---|
 | ![t000_processed_regions](https://user-images.githubusercontent.com/59691442/174501290-4000f03e-b6ff-427a-adef-1757f3df3f4a.png) | ![t000_processed_segmentation](https://user-images.githubusercontent.com/59691442/174501292-ee28b06d-47e5-4b9e-a919-2b0bb73119dd.png) |
 
 ## Videos
@@ -80,8 +80,11 @@ variable = pipe(variable, {@func1,@func2,@func3});
 
 ## Documentation
 
-Datacorner image processing course :  
-<https://www.datacorner.fr/image-processing-1/>
+MATLAB:  
+<https://fr.mathworks.com/help/matlab/>
+
+Datacorner image processing course:  
+<https://www.datacorner.fr/image-processing/>
 
 ## Authors
 
