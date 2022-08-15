@@ -14,9 +14,9 @@ The goal is to create video with the maximum of cells visible.
 
 ## Images
 
-| Image original| Image processed|
-|---|---|
-|![t000_original](https://user-images.githubusercontent.com/59691442/174501288-3a19733f-c6e5-4551-ad4b-8e70f79f1150.png) | ![t000_processed](https://user-images.githubusercontent.com/59691442/174501289-557f8937-900d-462d-b834-88c1c298cf16.png) |
+| Original image                                                                                                          | Image processed|
+|-------------------------------------------------------------------------------------------------------------------------|---|
+| ![t000_original](https://user-images.githubusercontent.com/59691442/174501288-3a19733f-c6e5-4551-ad4b-8e70f79f1150.png) | ![t000_processed](https://user-images.githubusercontent.com/59691442/174501289-557f8937-900d-462d-b834-88c1c298cf16.png) |
 
 | Image regions| Image segmentation|
 |---|---|
